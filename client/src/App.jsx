@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {QueryClient,QueryClientProvider} from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+import useAuth from './hooks/useAuth';
+import { PrivateRoute } from './routes/privateRoute';
+const Home = lazy(() => import('./pages/Home'))
+const Inscreption = lazy(() => import('./pages/Inscreption'))
 function App() {
-  const [count, setCount] = useState(0)
+  const { isLoading, isAuthenticated } = useAuth();
+  if (isLoading) {
+    return (
+      <div className='w-screen h-screen flex justify-center items-center'>
+        <div className='w-10 h-10 border-4 border-red-500 rounded-full animate-spin'></div>
+      </div>
+    );
+  }
 
+  const queryClient = new QueryClient()
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+      <Suspense fallback={
+        <div className='w-screen h-screen flex justify-center items-center'>
+          <div className='w-10 h-10 border-4 border-red-500 rounded-full animate-spin'></div>
+        </div>
+      }>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/inscription' element={<Inscreption />}/>
+          <Route 
+            path='/profile' 
+            element={
+              <PrivateRoute 
+                authenticated={isAuthenticated}
+                element={<Profile/>}
+              />
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      </Router>
+      <ReactQueryDevtools/>
+    </QueryClientProvider>
   )
 }
 
