@@ -25,7 +25,7 @@ export const AuthProvider=({children})=>{
   useEffect(()=>{
     const token=localStorage.getItem('token')
     if(token){
-      axios.get(`http://localhost:5000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
+      axios.get(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`)
         .then((response)=>{
           if(response.data){
             setUser(response.data)
@@ -59,10 +59,15 @@ const useAuth = () => {
     if (token) {
       // Make a request to your authentication endpoint to verify the token
       // Replace 'YOUR_AUTH_ENDPOINT' with your actual authentication endpoint
-      axios.get(`http://localhost:5000/api/v1/auth/getUserAuth/${localStorage.getItem('token')}`)
+      axios.get(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`,{
+        params:{
+          token:token
+        }
+      })
         
         .then((response) => {
-          console.log(response.data)
+          console.log('fucking response')
+          console.log(response)
           if (response.data) {
             setIsAuthenticated(true);
           } else {
@@ -71,6 +76,7 @@ const useAuth = () => {
           setIsLoading(false);
         })
         .catch((error) => {
+          console.log('error',error)
           console.error('Error verifying token:', error);
           setIsAuthenticated(false);
           setIsLoading(false);

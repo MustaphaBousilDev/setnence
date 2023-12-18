@@ -17,51 +17,53 @@ export const validateEmail = (email) => {
 }
 
 export const validatePassword = (password) => {
+    console.log('from validation')
+    console.log(typeof(password.length))
     //check if password is empty
-    if (!password) return {
-        error: true,
-        message: "Password cannot be empty",
-    };
     //if password has less than 8 characters
     if (password.length < 8) return {
         error: true,
         message: "Password should be at least 8 characters long",
     };
     //if password has only letters error 
-    if (password.match(/^[a-zA-Z]+$/)) return {
-        error: true,
-        message: "Password should contain at least one number and one special character",
-    };
-    //if password has only numbers error
-    if (password.match(/^[0-9]+$/)) return {
-        error: true,
-        message: "Password should contain at least one letter and one special character",
-    };
-    //if password has only special characters error
-    if (password.match(/^[!@#$%^&_*]+$/)) return {
-        error: true,
-        message: "Password should contain at least one letter and one number",
-    };
-    //if password has only letters and numbers error
-    if (password.match(/^[a-zA-Z0-9]+$/)) return {
-        error: true,
-        message: "Password should contain at least one special character",
-    };
-    //if password has only letters and special characters error
-    if (password.match(/^[a-zA-Z!@#$%^&*]+$/)) return {
-        error: true,
-        message: "Password should contain at least one number",
-    };
-    //if password has only numbers and special characters error
-    if (password.match(/^[0-9!@#$%^&*]+$/)) return {
-        error: true,
-        message: "Password should contain at least one letter",
-    };
-    //if password has letters, numbers and special characters error
-    if (password.match(/^[a-zA-Z0-9!@#$_%^&*]+$/)) return {
-        error: false,
-        message: "Success password",
-    };
+    // if (password.match(/^[a-zA-Z]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one number and one special character",
+    // };
+    // //if password has only numbers error
+    // if (password.match(/^[0-9]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one letter and one special character",
+    // };
+    // //if password has only special characters error
+    // if (password.match(/^[!@#$%^&_*]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one letter and one number",
+    // };
+    // //if password has only letters and numbers error
+    // if (password.match(/^[a-zA-Z0-9]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one special character",
+    // };
+    // //if password has only letters and special characters error
+    // if (password.match(/^[a-zA-Z!@#$%^&*]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one number",
+    // };
+    // //if password has only numbers and special characters error
+    // if (password.match(/^[0-9!@#$%^&*]+$/)) return {
+    //     error: true,
+    //     message: "Password should contain at least one letter",
+    // };
+    // //if password has letters, numbers and special characters error
+    // if (password.match(/^[a-zA-Z0-9!@#$_%^&*]+$/)) return {
+    //     error: false,
+    //     message: "Success password",
+    // };
+    return {
+        error:false,
+        message:'success '
+    }
 }
 
 export const validateConfirmPassword = (confirmPassword, password) => {

@@ -32,7 +32,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/inscription' element={<Inscreption />}/>
           <Route 
-            path='/profile' 
+            path='/dashboard' 
             element={
               <PrivateRoute 
                 authenticated={isAuthenticated}

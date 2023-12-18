@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import APIClient from "../api/api";
 import { useQueryClient } from "react-query";
 
-const apiClient = new APIClient("/register");
+const apiClient = new APIClient("/login");
 
 const RegisterAPI = () => {
   const queryClient = useQueryClient() 
@@ -17,9 +17,12 @@ const RegisterAPI = () => {
     },
     onSuccess: (data) => {
       //handle success
-      queryClient.setQueryData(["users", data.saveUser], data)
+      console.log('this is fucking me')
+      console.log(data.data.data)
+      queryClient.setQueryData(["users",data.data.data.User], data)
+      localStorage.setItem('token',data.data.data.token)
       queryClient.invalidateQueries(["users"], { exact: true })
-      navigate('/verifyEmail')
+      navigate('/')
     },
   };
 };

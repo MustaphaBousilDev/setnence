@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: "http://localhost:4000/api/v1/auth",
 });
 
 class APIClient {
@@ -24,6 +24,8 @@ class APIClient {
   };
 
   post = (body) => {
+    console.log('from axios')
+    console.log(body)
     return axiosInstance
       .post(this.endpoint,body)
       .then((res) => res.data);

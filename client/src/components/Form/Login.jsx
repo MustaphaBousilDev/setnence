@@ -1,99 +1,52 @@
 import './login.css'
-import  {useState} from 'react'
 import CustomInput from '../common/Input'
-import { useMutation } from 'react-query';
-import { useQueryClient } from 'react-query'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormButton} from '../common/Buttons'
+import { LoginService } from './login';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { loginUser } from '../../service/api/auth/auth';
 import {AiOutlineMail,AiFillLock} from 'react-icons/ai'
-//import { validateEmail, validatePassword } from '../../helpers/validations'
-let emailValidate={}
-let passwordValidate={}
+import { validateCredentials } from '../../helpers/validations/login.credentials'
+import loginInputs from '../../constants/login';
 export const Login = () => {
-  const navigate=useNavigate()
-  //react query 
-  const queryClient = useQueryClient()
-  const loginUserMutation = useMutation({
-    mutationFn: loginUser,
-    onSuccess: data => {
-      queryClient.setQueryData(["users", data], data)
-      queryClient.invalidateQueries(["users"], { exact: true })
-      localStorage.setItem('token',data.data.token)
-      Cookies.set('token', data.data.token, { httpOnly: true });
-      navigate('/')
-    },
-    onError: (error)=>{
-      toast.error(error.response.data.message);
-    }
-  })
-  const [submet,setSubmet]=useState(false) 
-  const [login,setLogin]=useState({
-    email:'',
-    password:'',
-  })
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmet(true)
-    //emailValidate=validateEmail(login.email)
-    //passwordValidate=validatePassword(login.password)
-    if(!emailValidate?.error && !passwordValidate?.error){
-      loginUserMutation.mutate(login);
-    }
-  }
-  const handleLoginChange = (e) => {
-    const { name, value } = e.target;
-    setLogin({ ...login, [name]: value });
-    //emailValidate=validateEmail(login.email)
-    //passwordValidate=validatePassword(login.password)
-  };
-  
+  const loginService=LoginService()
+  const {submet,loginStatus,handleSubmit,handleLoginChange} = loginService
+
   return (
     <form
       onSubmit={handleSubmit}
       className=' my-4 flex flex-col gap-4' >
-      <CustomInput 
-        icon={<AiOutlineMail />} 
-        type={'text'} 
-        name={'email'}
-        id={'email'}
-        placeholder={'Enter your Email'} 
-        onChange={handleLoginChange}
-        className={`border-gray-500 focus:border-white  ${submet && emailValidate?.error && 
-          ' border-2 border-red-500 focus:border-red-800'}`}
-        
-      />
+      
         <Toaster position="top-right" reverseOrder={false}>
           {/* Add any toasts you want to display when an error occurs */}
         </Toaster>
       
-      <CustomInput 
-        icon={<AiFillLock />} 
-        type={'password'} 
-        name={'password'}
-        id={'password'}
-        placeholder={'●●●●●●●●●●'} 
-        onChange={handleLoginChange}
-        className={`border-gray-500 focus:border-white 
-          ${submet && passwordValidate?.error && 
-            'border-2 border-red-500 focus:border-red-800'}`}
-      />
       {
-        /**
-         * submet && passwordValidate?.error && (
-            <span className='text-red-500 text-sm w-[80%] flex mx-auto'>
-              {passwordValidate.message}
-            </span>
-        )
-         */
+        loginInputs.map((item,index)=>{
+          return (
+            <CustomInput 
+              key={index}
+              icon={<item.icon/>} 
+              type={item.type} 
+              name={item.name}
+              id={item.id}
+              placeholder={item.placeholder} 
+              onChange={handleLoginChange}
+              className={`${item.className}`}
+              submit={submet}
+              validate={loginStatus[item.name].error}
+              errorMessage={loginStatus[item.name].message}
+            />
+          )
+        })
       }
+
       <FormButton
-        disabled={loginUserMutation.isLoading}
+        disabled={loginService.loginUserMutation.isLoading}
         >
         {
-          loginUserMutation.isLoading ? 'Login...' : 'Login'
+          loginService.loginUserMutation.isLoading ? 'Login...' : 'Login'
         }
       </FormButton>
 
