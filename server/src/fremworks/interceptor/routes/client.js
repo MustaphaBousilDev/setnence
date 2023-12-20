@@ -1,5 +1,6 @@
 const express = require("express");
 const { clientController } = require("../../../controllers");
+const { isAuthenticated, isSyndicale } = require("../middleware/auth");
 
 module.exports = (ded) => {
   const router = express.Router();
@@ -12,11 +13,11 @@ module.exports = (ded) => {
   } = clientController(ded);
 
   router
-    .route("/")
-    .get(getAllClientController)
-    .post(addClientController)
-    .delete(deleteClientController)
-    .patch(updateClientController);
+    .route("/:token?")
+    .get(isAuthenticated,getAllClientController)
+    .post(isAuthenticated,addClientController)
+    .delete(isAuthenticated,deleteClientController)
+    .patch(isAuthenticated,updateClientController);
 
   return router;
 };

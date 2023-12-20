@@ -38,6 +38,7 @@ class auth {
   static isAuthenticated = async (req, res, next) => {
     try {
       const { token } =req.params
+      // const { token } =req.signedCookies
       
       console.log('want to say fucking token')
       console.log(token)

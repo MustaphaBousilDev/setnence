@@ -25,7 +25,11 @@ export const AuthProvider=({children})=>{
   useEffect(()=>{
     const token=localStorage.getItem('token')
     if(token){
-      axios.get(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`)
+      axios.get(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`,
+      // {
+      //   withCredentials:true
+      // }
+      )
         .then((response)=>{
           if(response.data){
             setUser(response.data)
@@ -66,8 +70,8 @@ const useAuth = () => {
       })
         
         .then((response) => {
-          console.log('fucking response')
-          console.log(response)
+          // console.log('fucking response')
+          // console.log(response)
           if (response.data) {
             setIsAuthenticated(true);
           } else {

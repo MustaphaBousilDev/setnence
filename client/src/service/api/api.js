@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api/v1/auth",
+  baseURL: "http://localhost:4000/api/v1/",
 });
 
 class APIClient {
@@ -11,9 +11,9 @@ class APIClient {
     this.endpoint = endpoint;
   }
 
-  getAll = (queryString) => {
+  getAll = () => {
     return axiosInstance
-      .get(this.endpoint+queryString)
+      .get(this.endpoint)
       .then((res) => res.data);
   };
 

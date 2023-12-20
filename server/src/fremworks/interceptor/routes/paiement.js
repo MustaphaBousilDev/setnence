@@ -1,6 +1,6 @@
 const express = require("express");
 const { paiementController } = require("../../../controllers");
-
+const { isAuthenticated, isSyndicale } = require("../middleware/auth");
 module.exports = (ded) => {
   const router = express.Router();
 
@@ -9,14 +9,18 @@ module.exports = (ded) => {
     getAllPaiementController,
     deletePaiementController,
     updatePaiementController,
+    getPaiementController
+
   } = paiementController(ded);
 
   router
-    .route("/")
-    .post(addPaiementController)
-    .get(getAllPaiementController)
-    .delete(deletePaiementController)
-    .patch(updatePaiementController);
+    .route("/:token?")
+    .post(isAuthenticated,addPaiementController)
+    .get(isAuthenticated,getAllPaiementController)
+    .delete(isAuthenticated,deletePaiementController)
+    .patch(isAuthenticated,updatePaiementController);
+
+    router.route("/:token?/:id").get(isAuthenticated,getPaiementController);
 
   return router;
 };

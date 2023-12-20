@@ -4,9 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {QueryClient,QueryClientProvider} from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import NotFound from './pages/NotFound';
-import Profile from './pages/Profile';
+import Dashboard from './pages/Dashboard';
 import useAuth from './hooks/useAuth';
 import { PrivateRoute } from './routes/privateRoute';
+import Overview from './pages/Overview';
+import Appartment from './pages/Appartment';
+import Payments from './pages/Payments';
+import AddApartment from './pages/AddApartment';
+import AddClient from './pages/AddClient';
+import AddPayment from './pages/AddPayment';
+import Clients from './pages/Clients';
+import EditApartment from './pages/EditApartment';
+import EditPayment from './pages/EditPayment';
 const Home = lazy(() => import('./pages/Home'))
 const Inscreption = lazy(() => import('./pages/Inscreption'))
 function App() {
@@ -36,10 +45,26 @@ function App() {
             element={
               <PrivateRoute 
                 authenticated={isAuthenticated}
-                element={<Profile/>}
+                element={<Dashboard/>}
               />
             }
-          />
+          >
+            <Route path="/dashboard" element={<Overview />} />
+            <Route path="/dashboard/appartement" element={<Appartment />} />
+            <Route path="/dashboard/paiement" element={<Payments />} />
+            <Route path="/dashboard/paiement/add" element={<AddPayment />} />
+            <Route path="/dashboard/client" element={<Clients />} />
+            <Route path="/dashboard/appartement/add" element={<AddApartment />} />
+            <Route path="/dashboard/client/add" element={<AddClient />} />
+            <Route
+              path="/dashboard/appartement/edit/:id"
+              element={<EditApartment />}
+            />
+            <Route
+              path="/dashboard/paiement/edit/:id"
+              element={<EditPayment />}
+            />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

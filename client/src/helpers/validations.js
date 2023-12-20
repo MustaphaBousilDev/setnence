@@ -99,3 +99,49 @@ export const validateUsername = (username) => {
         message:  "Success username",
     }; 
 }
+export const validateString = (value, minLength = 3, maxLength = 20) => {
+    // Check if the value is a string
+    if (typeof value !== 'string') {
+        return {
+            error: true,
+            message: "Value must be a string",
+        };
+    }
+
+    // Check if the string is not empty
+    if (!value.trim()) {
+        return {
+            error: true,
+            message: "Value cannot be empty",
+        };
+    }
+
+    // Check if the string length is within the specified range
+    if (value.length < minLength || value.length > maxLength) {
+        return {
+            error: true,
+            message: `Value should be between ${minLength} and ${maxLength} characters long`,
+        };
+    }
+
+    return {
+        error: false,
+        message: "Success",
+    };
+};
+export const validatePositiveInteger = (value) => {
+    // Check if the value is a positive integer
+    const intValue = parseInt(value, 10);
+
+    if (isNaN(intValue) || intValue <= 0 || intValue !== parseFloat(value)) {
+        return {
+            error: true,
+            message: "Value must be a positive integer greater than 0",
+        };
+    }
+
+    return {
+        error: false,
+        message: "Success",
+    };
+};

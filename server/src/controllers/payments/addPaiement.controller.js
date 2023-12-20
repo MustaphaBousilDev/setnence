@@ -6,7 +6,9 @@ const {
 
 module.exports = async (req, res) => {
   try {
-    const { appartement, client, datePaiement, montant, user } = req.body;
+    const { appartement, client, montant } = req.body;
+    const datePaiement=new Date()
+    const user=req.user
 
     const useCaseInstanceUpdate = updateStatusAppartementUseCase();
     const responseUpdate = await useCaseInstanceUpdate.execute({

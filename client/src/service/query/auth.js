@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import APIClient from "../api/api";
 import { useQueryClient } from "react-query";
 
-const apiClient = new APIClient("/login");
+const apiClient = new APIClient("auth/login");
 
 const RegisterAPI = () => {
   const queryClient = useQueryClient() 

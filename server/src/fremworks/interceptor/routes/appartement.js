@@ -22,7 +22,7 @@ module.exports = (ded) => {
     .patch(isAuthenticated, updateAppartementController);
   router.route("/status").get(getAppartementByStatusController);
 
-  router.route("/:id").get(getAppartementController);
+  router.route("/:token?/:id").get(isAuthenticated,getAppartementController);
 
   return router;
 };

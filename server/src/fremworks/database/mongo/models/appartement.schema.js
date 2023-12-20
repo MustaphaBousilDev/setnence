@@ -57,12 +57,14 @@ const appartementSchema = new mongoose.Schema({
     required: true,
     trim: true,
     minlength: 2,
+    default:false,
   },
   garden: {
     type: Boolean,
     required: true,
     trim: true,
     minlength: 2,
+    default:false
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

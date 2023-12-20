@@ -9,7 +9,7 @@ module.exports = (app) => {
   routes.use("/auth", authRouter());
   routes.use("/appartement", appartementRouter());
   routes.use("/client", clientRouter());
-  routes.use("/paiement", paiementRouter());
+  routes.use("/payment", paiementRouter());
 
   return routes;
 };
