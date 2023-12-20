@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
       return res.status(400).json(
         new Response({
           status: 400,
-          message: "User not found",
+          message: "Email or Password is not correct",
           data: response,
         })
       );

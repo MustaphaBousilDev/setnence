@@ -63,7 +63,7 @@ const ClientService=()=>{
        .patch(`http://localhost:4000/api/v1/client/${localStorage.getItem('token')}`, data); // Replace '/api/your-endpoint' with your actual API endpoint
   });
   const handleSubmit =async  (e) => {
-    console.log('submit')
+    //console.log('submit')
     e.preventDefault()
     setSubmet(true)
     const isValid =validateCredentials(
@@ -129,10 +129,10 @@ const ClientService=()=>{
   };
   const handleChangeEdit = (e) => {
     const { name, value } = e.target;
-    console.log(value)
+    //console.log(value)
     setClientEdit({ ...clientEdit, [name]: value });
-    console.log('fucking change')
-    console.log(clientEdit) 
+    //console.log('fucking change')
+    //console.log(clientEdit) 
   };
 
   return {

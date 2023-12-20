@@ -77,7 +77,7 @@ const AppartemnetService=()=>{
        .patch(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`, data); // Replace '/api/your-endpoint' with your actual API endpoint
   });
   const handleSubmit =async  (e) => {
-    console.log('submit')
+    //console.log('submit')
     e.preventDefault()
     setSubmet(true)
     const isValid =validateCredentials(
@@ -151,10 +151,10 @@ const AppartemnetService=()=>{
   };
   const handleChangeEdit = (e) => {
     const { name, value } = e.target;
-    console.log(value)
+    //console.log(value)
     setAppertmentEdit({ ...appertementEdit, [name]: value });
-    console.log('fucking change')
-    console.log(appertementEdit) 
+    //console.log('fucking change')
+    //console.log(appertementEdit) 
   };
 
   return {

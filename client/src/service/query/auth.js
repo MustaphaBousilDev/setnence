@@ -13,12 +13,11 @@ const RegisterAPI = () => {
     },
     onError: (error) => {
       //handle error
-      console.log(error)
+      alert(error.response.data.message)
+      //console.log(error.response.data.message)
     },
     onSuccess: (data) => {
       //handle success
-      console.log('this is fucking me')
-      console.log(data.data.data)
       queryClient.setQueryData(["users",data.data.data.User], data)
       localStorage.setItem('token',data.data.data.token)
       queryClient.invalidateQueries(["users"], { exact: true })

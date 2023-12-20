@@ -43,8 +43,8 @@ const Appartment = () => {
 
   const { data: appartments, isLoading, refetch } = useQuery("appartment", fetchAppartments);
   const handleDelete=async (id)=>{
-    console.log('rrrrr')
-    console.log('ototot ',id);
+    //console.log('rrrrr')
+    //console.log('ototot ',id);
     const response = await axios
     .delete(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`,{
       data:{
@@ -57,7 +57,7 @@ const Appartment = () => {
     return <Spinner color="blue" size="large" />;
   }
 
-  console.log(appartments.data)
+  //console.log(appartments.data)
 
 
   

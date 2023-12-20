@@ -7,8 +7,7 @@ import { useQuery } from "react-query";
 const EditPayment = () => {
   const {id}=useParams()
   const {handleChangeEdit,handleSubmitEdit,paymentData}= PaymentService()
-  console.log('fuck are you')
-  console.log(paymentData)
+  //console.log(paymentData)
   const fetchAppartments = async () => {
     const response = await axios.get(`http://localhost:4000/api/v1/appartement/${localStorage.getItem('token')}`); // Replace with your actual API endpoint
     return response.data;

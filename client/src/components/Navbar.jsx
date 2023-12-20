@@ -42,6 +42,10 @@ function ProfileMenu() {
   //const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const handleLogout=()=>{
+    localStorage.clear('token')
+    navigate("/inscription")
+  }
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -92,10 +96,7 @@ function ProfileMenu() {
                 color={isLastItem ? "red" : "inherit"}
                 onClick={
                   isLastItem
-                    ? () => {
-                        // dispatch(logout());
-                        navigate("/auth/sign-in");
-                      }
+                    ? handleLogout
                     : undefined
                 }
               >

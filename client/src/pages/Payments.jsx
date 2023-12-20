@@ -39,7 +39,7 @@ const  Payments= ()=> {
   if (isLoading) {
     return <Spinner color="blue" size="large" />;
   }
-  console.log(payments)
+  // console.log(payments)
   return (
     <div>
       <Card className="h-full w-full">

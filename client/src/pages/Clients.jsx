@@ -42,8 +42,8 @@ const  Clients=()=> {
 
   const { data:dataClient, isLoading, refetch } = useQuery("client", fetchClients);
   const handleDelete=async (id)=>{
-    console.log('rrrrr')
-    console.log('ototot ',id);
+    // console.log('rrrrr')
+    // console.log('ototot ',id);
     const response = await axios
     .delete(`http://localhost:4000/api/v1/client/${localStorage.getItem('token')}`,{
       data:{
@@ -55,7 +55,7 @@ const  Clients=()=> {
   if (isLoading) {
     return <Spinner color="blue" size="large" />;
   }
-  console.log(dataClient.data)
+  //.log(dataClient.data)
 
   return (
     <>

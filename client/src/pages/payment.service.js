@@ -48,8 +48,9 @@ const PaymentService = () => {
        .patch(`http://localhost:4000/api/v1/payment/${localStorage.getItem('token')}`, data); // Replace '/api/your-endpoint' with your actual API endpoint
   });
   const handleSubmit =async  (e) => {
-    console.log('submit')
+    //console.log('submit')
     e.preventDefault()
+    //console.log(payment)
     //send data to store in database using mutate reactQuery
     try {
       // Call the mutation function with the data you want to send
@@ -78,12 +79,12 @@ const PaymentService = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPayment({ ...payment, [name]: value });
-    console.log(payment)
+    //console.log(payment)
   };
   const handleChangeEdit = (e) => {
     const { name, value } = e.target;
     setPaymentEdit({ ...paymentEdit, [name]: value });
-    console.log(paymentEdit)
+    // console.log(paymentEdit)
   };
   const handlePrint = (e) => {
     const objectData = {

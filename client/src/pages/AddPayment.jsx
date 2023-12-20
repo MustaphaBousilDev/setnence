@@ -1,5 +1,4 @@
 import { Card, Input, Button, Typography, Spinner } from "@material-tailwind/react";
-import { Select, Option } from "@material-tailwind/react";
 import axios from "axios";
 import { useQuery } from "react-query";
 // import { PaiementService } from "./paiementService";
@@ -9,7 +8,6 @@ const AddPayment=()=>{
   const { 
     handleChange,
     payment,
-    setPayment,
     handleSubmit
   } = PaymentService()
   const fetchAppartments = async () => {
@@ -30,7 +28,7 @@ const AddPayment=()=>{
   if (loadingAppa || loadingClien) {
     return <Spinner color="blue" size="large" />;
   }
-  console.log(appPay)
+  // console.log(appPay)
   return (
     <Card color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
