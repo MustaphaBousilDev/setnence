@@ -7,7 +7,7 @@ const routes = require("./fremworks/interceptor/routes");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
+const  {notFound, errorHandler} = require('../src/fremworks/interceptor/middleware/errorHandler')
 const allowedOrigins = ["http://localhost:5174"];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -25,9 +25,14 @@ module.exports = {
     app.use(express.json());
     app.use(cookieParser());
     app.use(cors(corsOptions));
+    
     const apiRoutes = routes();
     app.use("/api/v1", apiRoutes);
     app.use(bodyParser.json());
+    app.use(notFound)
+    app.use(errorHandler)
+    
+
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

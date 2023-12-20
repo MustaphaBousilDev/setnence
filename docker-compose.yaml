@@ -1,0 +1,22 @@
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+      target: development
+    image: backend
+    command: npm run dev
+    env_file:
+      - ./server/.env
+    ports:
+      - 4000:4000
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+      target: development
+    image: frontend
+    command: npm run dev
+    ports:
+      - 5174:5174
