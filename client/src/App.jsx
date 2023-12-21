@@ -16,10 +16,15 @@ import AddPayment from './pages/AddPayment';
 import Clients from './pages/Clients';
 import EditApartment from './pages/EditApartment';
 import EditPayment from './pages/EditPayment';
+import { useContext } from 'react';
+// import { AuthContext, AuthProvider } from './hooks/useContext';
+
+// import {useAuth} from '../src/hooks/useContext'
 const Home = lazy(() => import('./pages/Home'))
 const Inscreption = lazy(() => import('./pages/Inscreption'))
 function App() {
   const { isLoading, isAuthenticated } = useAuth();
+  // const {useAuth,isAuth} = useContext(AuthContext)
   if (isLoading) {
     return (
       <div className='w-screen h-screen flex justify-center items-center'>
@@ -37,36 +42,37 @@ function App() {
           <div className='w-10 h-10 border-4 border-red-500 rounded-full animate-spin'></div>
         </div>
       }>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/inscription' element={<Inscreption />}/>
-          <Route 
-            path='/dashboard' 
-            element={
-              <PrivateRoute 
-                authenticated={isAuthenticated}
-                element={<Dashboard/>}
+        
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/inscription' element={<Inscreption />}/>
+            <Route 
+              path='/dashboard' 
+              element={
+                <PrivateRoute 
+                  authenticated={isAuthenticated}
+                  element={<Dashboard/>}
+                />
+              }
+            >
+              <Route path="/dashboard" element={<Overview />} />
+              <Route path="/dashboard/appartement" element={<Appartment />} />
+              <Route path="/dashboard/paiement" element={<Payments />} />
+              <Route path="/dashboard/paiement/add" element={<AddPayment />} />
+              <Route path="/dashboard/client" element={<Clients />} />
+              <Route path="/dashboard/appartement/add" element={<AddApartment />} />
+              <Route path="/dashboard/client/add" element={<AddClient />} />
+              <Route
+                path="/dashboard/appartement/edit/:id"
+                element={<EditApartment />}
               />
-            }
-          >
-            <Route path="/dashboard" element={<Overview />} />
-            <Route path="/dashboard/appartement" element={<Appartment />} />
-            <Route path="/dashboard/paiement" element={<Payments />} />
-            <Route path="/dashboard/paiement/add" element={<AddPayment />} />
-            <Route path="/dashboard/client" element={<Clients />} />
-            <Route path="/dashboard/appartement/add" element={<AddApartment />} />
-            <Route path="/dashboard/client/add" element={<AddClient />} />
-            <Route
-              path="/dashboard/appartement/edit/:id"
-              element={<EditApartment />}
-            />
-            <Route
-              path="/dashboard/paiement/edit/:id"
-              element={<EditPayment />}
-            />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+              <Route
+                path="/dashboard/paiement/edit/:id"
+                element={<EditPayment />}
+              />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
       </Suspense>
       </Router>
       <ReactQueryDevtools/>

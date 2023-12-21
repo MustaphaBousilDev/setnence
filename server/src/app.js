@@ -8,7 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const  {notFound, errorHandler} = require('../src/fremworks/interceptor/middleware/errorHandler')
-const allowedOrigins = ["http://localhost:5174"];
+const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
